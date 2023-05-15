@@ -16,6 +16,7 @@
     <include file="create-device-table.xml" relativeToChangelogFile="true"/>
     <include file="create-evaporator-table.xml" relativeToChangelogFile="true"/>
     <include file="create-liquid-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-user-table.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>

@@ -16,5 +16,6 @@
     <include file="insert-devices.xml" relativeToChangelogFile="true"/>
     <include file="insert-evaporators.xml" relativeToChangelogFile="true"/>
     <include file="insert-liquids.xml" relativeToChangelogFile="true"/>
+    <include file="insert-user-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

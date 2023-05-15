@@ -6,17 +6,17 @@
 
     <changeSet id="create-evaporator-table" author="Mat">
         <createTable tableName="evaporator">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="evaporator_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)"/>
             <column name="resistance" type="double"/>
             <column name="price" type="double"/>
             <column name="store_id" type="int">
-                <constraints foreignKeyName="store_evaporator_id_forKey" references="store(id)"/>
+                <constraints foreignKeyName="store_evaporator_id_forKey" references="store(store_id)"/>
             </column>
             <column name="provider_id" type="int">
-                <constraints foreignKeyName="provider_evaporator_id_forKey" references="provider(id)"/>
+                <constraints foreignKeyName="provider_evaporator_id_forKey" references="provider(provider_id)"/>
             </column>
         </createTable>
     </changeSet>

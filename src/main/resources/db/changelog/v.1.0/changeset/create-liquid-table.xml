@@ -6,17 +6,17 @@
 
     <changeSet id="create-liquid-table" author="Mat">
         <createTable tableName="liquid">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="liquid_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)"/>
             <column name="taste" type="varchar(255)"/>
             <column name="price" type="double"/>
             <column name="store_id" type="int">
-                <constraints foreignKeyName="store_liquid_id_forKey" references="store(id)"/>
+                <constraints foreignKeyName="store_liquid_id_forKey" references="store(store_id)"/>
             </column>
             <column name="provider_id" type="int">
-                <constraints foreignKeyName="provider_liquid_id_forKey" references="provider(id)"/>
+                <constraints foreignKeyName="provider_liquid_id_forKey" references="provider(provider_id)"/>
             </column>
         </createTable>
     </changeSet>
