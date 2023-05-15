@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <changeSet id="insert-evaporators" author="Mat">
+        <insert tableName="evaporator">
+            <column name="name">ROA-1</column>
+            <column name="resistance">1.4</column>
+            <column name="price">13</column>
+            <column name="provider_id">6</column>
+            <column name="store_id">1</column>
+        </insert>
+
+        <insert tableName="evaporator">
+            <column name="name">FWR-2</column>
+            <column name="resistance">0.7</column>
+            <column name="price">12</column>
+            <column name="provider_id">4</column>
+            <column name="store_id">3</column>
+        </insert>
+
+        <insert tableName="evaporator">
+            <column name="name">OMEGA</column>
+            <column name="resistance">1.3</column>
+            <column name="price">11</column>
+            <column name="provider_id">1</column>
+            <column name="store_id">2</column>
+        </insert>
+
+        <insert tableName="evaporator">
+            <column name="name">WER3</column>
+            <column name="resistance">1</column>
+            <column name="price">10</column>
+            <column name="provider_id">3</column>
+            <column name="store_id">1</column>
+        </insert>
+
+        <insert tableName="evaporator">
+            <column name="name">AGR mod 3</column>
+            <column name="resistance">0.7</column>
+            <column name="price">9</column>
+            <column name="provider_id">4</column>
+            <column name="store_id">2</column>
+        </insert>
+
+        <insert tableName="evaporator">
+            <column name="name">ESQ</column>
+            <column name="resistance">0.5</column>
+            <column name="price">8</column>
+            <column name="provider_id">5</column>
+            <column name="store_id">2</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

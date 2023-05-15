@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление аксессуара</title>
+</head>
+<body>
+
+<div>
+    <div>
+        <span>Добавить акксессуар в список</span>
+
+        <div>
+            <form th:method="POST" th:action="@{/accessory}" th:object="${accessory}">
+
+                <p>
+                    <label for="name">Введите название:</label>
+                    <input th:field="*{name}" name="name" id="name" placeholder="название" type="string">
+                </p>
+
+                <p>
+                    <label for="type">Введите тип:</label>
+                    <input th:field="*{type}" name="type" id="type" placeholder="тип" type="string">
+                </p>
+
+                <p>
+                    <label for="price">Введите цену:</label>
+                    <input th:field="*{price}" name="price" id="price" placeholder="цена" type="double">
+                </p>
+
+                <p>
+                <label for="provider_id">Поставщик: </label>
+                <select th:name="provider_id" id="provider_id">
+                    <option th:value="NULL">пусто</option>
+                    <option th:each="provider: ${providers}"
+                            th:value="${provider.id}"
+                            th:text="${provider.name +','+ provider.address}"></option>
+                </select>
+                </p>
+                <p>
+                    <label for="store_id">Магазин: </label>
+                    <select th:name="store_id" id="store_id">
+                        <option th:value="NULL">пусто</option>
+                        <option th:each="store: ${stores}"
+                                th:value="${store.id}"
+                                th:text="${store.name +','+ store.address}"></option>
+                    </select>
+                </p>
+
+                <button type="submit">
+                    СОХРАНИТЬ
+                </button>
+            </form>
+
+            <form th:method="GET" th:action="@{/accessory}">
+                <button type="submit">
+                    ОТМЕНА
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

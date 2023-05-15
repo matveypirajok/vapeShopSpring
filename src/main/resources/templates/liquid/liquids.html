@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Жидкости</title>
+</head>
+<head>
+    <title>Жидкости</title>
+</head>
+<body>
+<header>
+    <h3>Список жидкостей</h3>
+</header>
+<br>
+
+<form th:method="GET" th:action="@{/liquid/create}">
+    <button type="submit">
+        ДОБАВИТЬ ЖИДКОСТЬ
+    </button>
+</form>
+
+<br>
+
+<div th:switch="${liquids}">
+    <div th:case="null">
+        <h2>Список пуст</h2>
+    </div>
+
+    <div th:if="${liquids.size() != 0}">
+
+        <table>
+            <tr>
+                <th>№</th>
+                <th>ИМЯ</th>
+                <th>ВКУС</th>
+                <th>ЦЕНА</th>
+                <th>МАГАЗИН</th>
+                <th>ПОСТАВЩИК</th>
+                <th colspan="2">ДЕЙСТВИЕ</th>
+            </tr>
+
+
+            <tr th:each="liquid,liquidStat : ${liquids}">
+                <td th:text="${liquidStat.count}"></td>
+                <td th:text="${liquid.name}"></td>
+                <td th:text="${liquid.taste}"></td>
+                <td th:text="${liquid.price}"></td>
+                <td th:text="${liquid.storeName}"></td>
+                <td th:text="${liquid.providerName}"></td>
+                <td>
+                    <form th:method="GET" th:action="@{/liquid/{id}/edit(id=${liquid.id})}">
+                        <button type="submit">
+                            РЕДАКТИРОВАТЬ
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/liquid/{id}(id=${liquid.id})}">
+                        <button type="submit">
+                            УДАЛИТЬ
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+<br>
+</body>
+</html>

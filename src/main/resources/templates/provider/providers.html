@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Поставщики</title>
+</head>
+<head>
+    <title>Поставщики</title>
+</head>
+<body>
+<header>
+    <h3>Список поставщиков</h3>
+</header>
+<br>
+
+<form th:method="GET" th:action="@{/provider/create}">
+    <button type="submit">
+        ДОБАВИТЬ ПОСТАВЩИКА
+    </button>
+</form>
+
+<br>
+
+<div th:switch="${providers}">
+    <div th:case="null">
+        <h2>Список пуст</h2>
+    </div>
+
+    <div th:if="${providers.size() != 0}">
+
+        <table>
+            <tr>
+                <th>№</th>
+                <th>НАЗВАНИЕ КОМПАНИИ</th>
+                <th>АДРЕСС</th>
+                <th colspan="2">ДЕЙСТВИЕ</th>
+            </tr>
+
+
+            <tr th:each="provider,providerStat : ${providers}">
+                <td th:text="${providerStat.count}"></td>
+                <td th:text="${provider.name}"></td>
+                <td th:text="${provider.address}"></td>
+                <td>
+                    <form th:method="GET" th:action="@{/provider/{id}/edit(id=${provider.id})}">
+                        <button type="submit">
+                            РЕДАКТИРОВАТЬ
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/provider/{id}(id=${provider.id})}">
+                        <button type="submit">
+                            УДАЛИТЬ
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+<br>
+</body>
+</html>

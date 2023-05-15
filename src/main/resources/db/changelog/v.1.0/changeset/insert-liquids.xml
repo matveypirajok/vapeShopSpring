@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <changeSet id="insert-liquids" author="Mat">
+        <insert tableName="liquid">
+            <column name="name">JOYETECH USA Mix</column>
+            <column name="taste">Табак</column>
+            <column name="price">8</column>
+            <column name="provider_id">6</column>
+            <column name="store_id">1</column>
+        </insert>
+
+        <insert tableName="liquid">
+            <column name="name">SAFELIQ</column>
+            <column name="taste">Клубника</column>
+            <column name="price">7</column>
+            <column name="provider_id">5</column>
+            <column name="store_id">2</column>
+        </insert>
+
+        <insert tableName="liquid">
+            <column name="name">МИШКА V2</column>
+            <column name="taste">Манго с маракуйя</column>
+            <column name="price">6</column>
+            <column name="provider_id">4</column>
+            <column name="store_id">3</column>
+        </insert>
+
+        <insert tableName="liquid">
+            <column name="name">МОРС</column>
+            <column name="taste">Лесные ягоды</column>
+            <column name="price">8</column>
+            <column name="provider_id">3</column>
+            <column name="store_id">4</column>
+        </insert>
+
+        <insert tableName="liquid">
+            <column name="name">МОРС МИКС Фьюжн</column>
+            <column name="taste">Сладкая клубника, экзотическая маракуйя и кислое киви</column>
+            <column name="price">12</column>
+            <column name="provider_id">4</column>
+            <column name="store_id">5</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

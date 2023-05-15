@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазины</title>
+</head>
+<head>
+    <title>Магазины</title>
+</head>
+<body>
+<header>
+    <h3>Список Магазинов</h3>
+</header>
+<br>
+
+<form th:method="GET" th:action="@{/store/create}">
+    <button type="submit">
+        ДОБАВИТЬ МАГАЗИН
+    </button>
+</form>
+
+<br>
+
+<div th:switch="${stores}">
+    <div th:case="null">
+        <h2>Список пуст</h2>
+    </div>
+
+    <div th:if="${stores.size() != 0}">
+
+        <table>
+            <tr>
+                <th>№</th>
+                <th>НАЗВАНИЕ КОМПАНИИ</th>
+                <th>АДРЕСС</th>
+                <th colspan="2">ДЕЙСТВИЕ</th>
+            </tr>
+
+
+            <tr th:each="store,storeStat : ${stores}">
+                <td th:text="${storeStat.count}"></td>
+                <td th:text="${store.name}"></td>
+                <td th:text="${store.address}"></td>
+                <td>
+                    <form th:method="GET" th:action="@{/store/{id}/edit(id=${store.id})}">
+                        <button type="submit">
+                            РЕДАКТИРОВАТЬ
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/store/{id}(id=${store.id})}">
+                        <button type="submit">
+                            УДАЛИТЬ
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+<br>
+</body>
+</html>

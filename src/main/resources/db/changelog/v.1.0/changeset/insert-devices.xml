@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <changeSet id="insert-devices" author="Mat">
+        <insert tableName="device">
+            <column name="name">VOOPOO V.Thru Pro</column>
+            <column name="brand">VOOPOO</column>
+            <column name="price">49</column>
+            <column name="provider_id">3</column>
+            <column name="store_id">1</column>
+        </insert>
+
+        <insert tableName="device">
+            <column name="name">SMOANT Santi</column>
+            <column name="brand">SMOANT</column>
+            <column name="price">61</column>
+            <column name="provider_id">2</column>
+            <column name="store_id">2</column>
+        </insert>
+
+        <insert tableName="device">
+            <column name="name">VAPORESSO XROS 2</column>
+            <column name="brand">VAPORESSO</column>
+            <column name="price">59</column>
+            <column name="provider_id">2</column>
+            <column name="store_id">5</column>
+        </insert>
+
+        <insert tableName="device">
+            <column name="name">VOOPOO Vmate Infinity Edition</column>
+            <column name="brand">VOOPOO</column>
+            <column name="price">64</column>
+            <column name="provider_id">5</column>
+            <column name="store_id">3</column>
+        </insert>
+
+        <insert tableName="device">
+            <column name="name">SMOANT Charon Baby Plus</column>
+            <column name="brand">SMOANT</column>
+            <column name="price">69</column>
+            <column name="provider_id">4</column>
+            <column name="store_id">5</column>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

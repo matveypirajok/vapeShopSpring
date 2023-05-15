@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <changeSet id="insert-stores" author="Mat">
+        <insert tableName="store">
+            <column name="name">Vipmag</column>
+            <column name="address">Пушкина, 12</column>
+        </insert>
+
+        <insert tableName="store">
+            <column name="name">Sigaretnet</column>
+            <column name="address">Пушкина, 23</column>
+        </insert>
+
+        <insert tableName="store">
+            <column name="name">DragonVape</column>
+            <column name="address">Пушкина, 35</column>
+        </insert>
+
+        <insert tableName="store">
+            <column name="name">StoreVape</column>
+            <column name="address">Пушкина, 76</column>
+        </insert>
+
+        <insert tableName="store">
+            <column name="name">Kraken</column>
+            <column name="address">Пушкина, 24</column>
+        </insert>
+
+        <insert tableName="store">
+            <column name="name">Oguzok</column>
+            <column name="address">Пушкина, 124</column>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Картриджи</title>
+</head>
+<head>
+    <title>Картриджи</title>
+</head>
+<body>
+<header>
+    <h3>Список картриджей</h3>
+</header>
+<br>
+
+<form th:method="GET" th:action="@{/cartridge/create}">
+    <button type="submit">
+        ДОБАВИТЬ КАРТРИДЖ
+    </button>
+</form>
+
+<br>
+
+<div th:switch="${cartridges}">
+    <div th:case="null">
+        <h2>Список пуст</h2>
+    </div>
+
+    <div th:if="${cartridges.size() != 0}">
+
+        <table>
+            <tr>
+                <th>№</th>
+                <th>ИМЯ</th>
+                <th>СОПРОТИВЛЕНИЕ</th>
+                <th>ЦЕНА</th>
+                <th>МАГАЗИН</th>
+                <th>ПОСТАВЩИК</th>
+                <th colspan="2">ДЕЙСТВИЕ</th>
+            </tr>
+
+
+            <tr th:each="cartridge,cartridgeStat : ${cartridges}">
+                <td th:text="${cartridgeStat.count}"></td>
+                <td th:text="${cartridge.name}"></td>
+                <td th:text="${cartridge.resistance}"></td>
+                <td th:text="${cartridge.price}"></td>
+                <td th:text="${cartridge.storeName}"></td>
+                <td th:text="${cartridge.providerName}"></td>
+                <td>
+                    <form th:method="GET" th:action="@{/cartridge/{id}/edit(id=${cartridge.id})}">
+                        <button type="submit">
+                            РЕДАКТИРОВАТЬ
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/cartridge/{id}(id=${cartridge.id})}">
+                        <button type="submit">
+                            УДАЛИТЬ
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+<br>
+</body>
+</html>

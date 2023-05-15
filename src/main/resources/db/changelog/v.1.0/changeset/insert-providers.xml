@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <changeSet id="insert-providers" author="Mat">
+        <insert tableName="provider">
+            <column name="name">PrideVape</column>
+            <column name="address">Ленина, 12</column>
+        </insert>
+
+        <insert tableName="provider">
+            <column name="name">Brusko</column>
+            <column name="address">Ленина, 35</column>
+        </insert>
+
+        <insert tableName="provider">
+            <column name="name">Elmerk</column>
+            <column name="address">Ленина, 32</column>
+        </insert>
+
+        <insert tableName="provider">
+            <column name="name">Eleaf</column>
+            <column name="address">Ленина, 54</column>
+        </insert>
+
+        <insert tableName="provider">
+            <column name="name">BoomVapers</column>
+            <column name="address">Ленина, 1</column>
+        </insert>
+
+        <insert tableName="provider">
+            <column name="name">DRILL</column>
+            <column name="address">Ленина, 53</column>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

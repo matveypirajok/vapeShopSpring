@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Изменение испарителя</title>
+</head>
+<body>
+
+<div>
+    <div>
+        <span>Изменение испарителя</span>
+
+        <div>
+            <form th:method="PATCH" th:action="@{/provider/{id}(id=${provider.getId()})}" th:object="${provider}">
+
+                <p>
+                    <label for="name">Введите название:</label>
+                    <input th:field="*{name}" name="name" id="name" placeholder="название" type="string">
+                </p>
+
+                <p>
+                    <label for="address">Введите адресс:</label>
+                    <input th:field="*{address}" name="address" id="address" placeholder="адресс" type="string">
+                </p>
+
+                <button type="submit">
+                    ОБНОВИТЬ
+                </button>
+            </form>
+
+            <form th:method="GET" th:action="@{/provider}">
+                <button type="submit">
+                    ОТМЕНА
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

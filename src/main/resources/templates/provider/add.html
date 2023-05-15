@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление поставщика</title>
+</head>
+<body>
+
+<div>
+    <div>
+        <span>Добавить поставщика в список</span>
+
+        <div>
+            <form th:method="POST" th:action="@{/provider}" th:object="${provider}">
+
+                <p>
+                    <label for="name">Введите название:</label>
+                    <input th:field="*{name}" name="name" id="name" placeholder="название" type="string">
+                </p>
+
+                <p>
+                    <label for="address">Введите адресс:</label>
+                    <input th:field="*{address}" name="address" id="address" placeholder="адресс" type="string">
+                </p>
+
+                <button type="submit">
+                    СОХРАНИТЬ
+                </button>
+            </form>
+
+            <form class="validate-form" th:method="GET" th:action="@{/provider}">
+                <button type="submit">
+                    ОТМЕНА
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Аксессуары</title>
+</head>
+<head>
+    <title>Аксессуары</title>
+</head>
+<body>
+<header>
+    <h3>Список аксессуаров</h3>
+</header>
+<br>
+
+<form th:method="GET" th:action="@{/accessory/create}">
+    <button type="submit">
+        ДОБАВИТЬ АКСЕССУАР
+    </button>
+</form>
+
+<br>
+
+<div th:switch="${accessories}">
+    <div th:case="null">
+        <h2>Список пуст</h2>
+    </div>
+
+        <div th:if="${accessories.size() != 0}">
+
+            <table>
+                <tr>
+                    <th>№</th>
+                    <th>ИМЯ</th>
+                    <th>ТИП</th>
+                    <th>ЦЕНА</th>
+                    <th>МАГАЗИН</th>
+                    <th>ПОСТАВЩИК</th>
+                    <th colspan="2">ДЕЙСТВИЕ</th>
+                </tr>
+
+
+                <tr th:each="accessory,accessoryStat : ${accessories}">
+                    <td th:text="${accessoryStat.count}"></td>
+                    <td th:text="${accessory.name}"></td>
+                    <td th:text="${accessory.type}"></td>
+                    <td th:text="${accessory.price}"></td>
+                    <td th:text="${accessory.storeName}"></td>
+                    <td th:text="${accessory.providerName}"></td>
+                    <td>
+                        <form th:method="GET" th:action="@{/accessory/{id}/edit(id=${accessory.id})}">
+                            <button type="submit">
+                                РЕДАКТИРОВАТЬ
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:method="DELETE" th:action="@{/accessory/{id}(id=${accessory.id})}">
+                            <button type="submit">
+                                УДАЛИТЬ
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <changeSet id="insert-accessories" author="Mat">
+        <insert tableName="accessory">
+            <column name="name">cottonBest</column>
+            <column name="type">Вата</column>
+            <column name="price">5</column>
+            <column name="provider_id">1</column>
+            <column name="store_id">1</column>
+        </insert>
+
+        <insert tableName="accessory">
+            <column name="name">AlienVire</column>
+            <column name="type">Спираль</column>
+            <column name="price">12</column>
+            <column name="provider_id">2</column>
+            <column name="store_id">2</column>
+        </insert>
+
+        <insert tableName="accessory">
+            <column name="name">Small driptip</column>
+            <column name="type">Driptip</column>
+            <column name="price">2</column>
+            <column name="provider_id">3</column>
+            <column name="store_id">3</column>
+        </insert>
+
+        <insert tableName="accessory">
+            <column name="name">CottonCandy slim</column>
+            <column name="type">Вата</column>
+            <column name="price">4</column>
+            <column name="provider_id">4</column>
+            <column name="store_id">4</column>
+        </insert>
+
+        <insert tableName="accessory">
+            <column name="name">Spirales</column>
+            <column name="type">Спираль</column>
+            <column name="price">6</column>
+            <column name="provider_id">5</column>
+            <column name="store_id">5</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
