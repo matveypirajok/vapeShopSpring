@@ -11,8 +11,10 @@ import vapeShop.service.StoreService;
 
 import java.util.List;
 
+import static vapeShop.data.ControllerData.*;
+
 @Controller
-@RequestMapping("/store")
+@RequestMapping(MAPPING_STORE)
 @RequiredArgsConstructor
 public class StoreController {
 
@@ -21,46 +23,46 @@ public class StoreController {
     @GetMapping
     public String findAll(Model model) {
         List<StoreDto> storesDtoList = storeService.findAllStores();
-        model.addAttribute("stores", storesDtoList);
-        return "store/stores";
+        model.addAttribute(STORES_LIST, storesDtoList);
+        return TO_STORES;
     }
 
-    @GetMapping("/create")
+    @GetMapping(MAPPING_CREATE)
     public String creationStore(Model model) {
-        model.addAttribute("store", new StoreDto());
-        return "store/add";
+        model.addAttribute(STORE_DTO, new StoreDto());
+        return TO_STORE_CREATE;
     }
 
     @PostMapping()
-    public String createStore(@ModelAttribute("store") @Valid StoreDto storeDto, BindingResult bindingResult) {
+    public String createStore(@ModelAttribute(STORE_DTO) @Valid StoreDto storeDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "store/add";
+            return TO_STORE_CREATE;
 
         storeService.createStore(storeDto);
 
-        return "redirect:/store";
+        return REDIRECT_STORE;
     }
 
-    @GetMapping("/{id}/edit")
-    public String update(@PathVariable("id") Long id,
+    @GetMapping(MAPPING_EDIT)
+    public String update(@PathVariable(ID) Long id,
                          Model model) {
-        model.addAttribute("store", storeService.findStoreById(id));
-        return "store/edit";
+        model.addAttribute(STORE_DTO, storeService.findStoreById(id));
+        return TO_STORE_EDIT;
     }
 
-    @PatchMapping("/{id}")
-    public String updateStore(@ModelAttribute("store") @Valid StoreDto storeDto, BindingResult bindingResult) {
+    @PatchMapping(MAPPING_ID)
+    public String updateStore(@ModelAttribute(STORE_DTO) @Valid StoreDto storeDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "store/edit";
+            return TO_STORE_EDIT;
 
         storeService.updateStore(storeDto);
-        return "redirect:/store";
+        return REDIRECT_STORE;
     }
 
-    @PostMapping("/{id}")
-    public String delete(@PathVariable("id") Long id)
+    @PostMapping(MAPPING_ID)
+    public String delete(@PathVariable(ID) Long id)
     {
         storeService.deleteStore(id);
-        return  "redirect:/store";
+        return  REDIRECT_STORE;
     }
 }

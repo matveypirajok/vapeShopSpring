@@ -1,7 +1,6 @@
 package vapeShop.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import vapeShop.dto.DeviceDto;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,12 @@ import vapeShop.service.StoreService;
 
 import java.util.List;
 
+import static vapeShop.data.ControllerData.*;
+import static vapeShop.data.EntityData.STORE_ID;
+import static vapeShop.data.EntityData.PROVIDER_ID;
+
 @Controller
-@RequestMapping("/device")
+@RequestMapping(MAPPING_DEVICE)
 @RequiredArgsConstructor
 public class DeviceController {
 
@@ -26,58 +29,58 @@ public class DeviceController {
     @GetMapping
     public String findAll(Model model) {
         List<DeviceDto> deviceDtoList = deviceService.findAllDevices();
-        model.addAttribute("devices", deviceDtoList);
-        return "device/devices";
+        model.addAttribute(DEVICES_LIST, deviceDtoList);
+        return TO_DEVICES;
     }
 
-    @GetMapping("/create")
+    @GetMapping(MAPPING_CREATE)
     public String creationDevice(Model model) {
-        model.addAttribute("device", new DeviceDto());
-        model.addAttribute("providers", providerService.findAllProviders());
-        model.addAttribute("stores", storeService.findAllStores());
-        return "device/add";
+        model.addAttribute(DEVICE_DTO, new DeviceDto());
+        model.addAttribute(PROVIDERS_LIST, providerService.findAllProviders());
+        model.addAttribute(STORES_LIST, storeService.findAllStores());
+        return TO_DEVICE_CREATE;
     }
 
     @PostMapping()
     public String createDevice(
-            @ModelAttribute("device") DeviceDto deviceDto,
+            @ModelAttribute(DEVICE_DTO) DeviceDto deviceDto,
             BindingResult bindingResult,
-            @RequestParam(value = "store_id", required = false) Long store_id,
-            @RequestParam(value = "provider_id", required = false) Long provider_id)
+            @RequestParam(value = STORE_ID, required = false) Long store_id,
+            @RequestParam(value = PROVIDER_ID, required = false) Long provider_id)
     {
-        if (bindingResult.hasErrors()){return "device/add";}
+        if (bindingResult.hasErrors()){return TO_DEVICE_CREATE;}
         deviceDto.setProviderId(provider_id);
         deviceDto.setStoreId(store_id);
         deviceService.createDevice(deviceDto);
 
-        return "redirect:/devices";
+        return REDIRECT_DEVICE;
     }
 
-    @GetMapping("/{id}/edit")
-    public String update(@PathVariable("id") Long id,
+    @GetMapping(MAPPING_EDIT)
+    public String update(@PathVariable(ID) Long id,
                          Model model) {
-        model.addAttribute("device", deviceService.findDeviceById(id));
-        model.addAttribute("providers", providerService.findAllProviders());
-        model.addAttribute("stores", storeService.findAllStores());
-        return "device/edit";
+        model.addAttribute(DEVICE_DTO, deviceService.findDeviceById(id));
+        model.addAttribute(PROVIDERS_LIST, providerService.findAllProviders());
+        model.addAttribute(STORES_LIST, storeService.findAllStores());
+        return TO_DEVICE_EDIT;
     }
 
-    @PatchMapping("/{id}")
-    public String updateDevice(@ModelAttribute("device") @Valid DeviceDto deviceDto,
+    @PatchMapping(MAPPING_ID)
+    public String updateDevice(@ModelAttribute(DEVICE_DTO) @Valid DeviceDto deviceDto,
                                BindingResult bindingResult,
-                               @RequestParam(value = "store_id", required = false) Long store_id,
-                               @RequestParam(value = "provider_id", required = false) Long provider_id) {
-        if (bindingResult.hasErrors()){return "device/edit";}
+                               @RequestParam(value = STORE_ID, required = false) Long store_id,
+                               @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+        if (bindingResult.hasErrors()){return TO_DEVICE_EDIT;}
         deviceDto.setProviderId(provider_id);
         deviceDto.setStoreId(store_id);
         deviceService.updateDevice(deviceDto);
-        return "redirect:/devices";
+        return REDIRECT_DEVICE;
     }
 
-    @PostMapping("/{id}")
-    public String delete(@PathVariable("id") Long id)
+    @PostMapping(MAPPING_ID)
+    public String delete(@PathVariable(ID) Long id)
     {
         deviceService.deleteDevice(id);
-        return  "redirect:/devices";
+        return  REDIRECT_DEVICE;
     }
 }

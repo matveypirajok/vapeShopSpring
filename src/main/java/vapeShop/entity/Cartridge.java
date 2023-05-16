@@ -1,26 +1,27 @@
 package vapeShop.entity;
 
 import jakarta.persistence.*;
-
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
+
+import static vapeShop.data.EntityData.STORE_ID;
+import static vapeShop.data.EntityData.PROVIDER_ID;
+import static vapeShop.data.EntityData.CARTRIDGE;
+import static vapeShop.data.EntityData.CARTRIDGE_ID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@ToString(exclude = {"store", "provider"})
-@Table(name = "cartridge")
+@Table(name = CARTRIDGE)
 
 public class Cartridge implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cartridge_id")
+    @Column(name = CARTRIDGE_ID)
     private Long id;
 
     @Column
@@ -33,10 +34,10 @@ public class Cartridge implements Serializable {
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = STORE_ID)
     private Store store;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "provider_id")
+    @JoinColumn(name = PROVIDER_ID)
     private Provider provider;
 }

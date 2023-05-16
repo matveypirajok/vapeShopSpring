@@ -2,7 +2,6 @@ package vapeShop.service.impl;
 
 import vapeShop.dto.DeviceDto;
 import lombok.RequiredArgsConstructor;
-import vapeShop.entity.Accessory;
 import vapeShop.entity.Device;
 import vapeShop.mapper.impl.DeviceMapper;
 import org.springframework.stereotype.Service;

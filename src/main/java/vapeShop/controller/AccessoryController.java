@@ -1,7 +1,6 @@
 package vapeShop.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import vapeShop.dto.AccessoryDto;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,24 @@ import vapeShop.service.StoreService;
 
 import java.util.List;
 
+import static vapeShop.data.ControllerData.MAPPING_CREATE;
+import static vapeShop.data.ControllerData.ACCESSORY_DTO;
+import static vapeShop.data.ControllerData.ACCESSORIES_LIST;
+import static vapeShop.data.ControllerData.STORES_LIST;
+import static vapeShop.data.ControllerData.PROVIDERS_LIST;
+import static vapeShop.data.ControllerData.ID;
+import static vapeShop.data.ControllerData.TO_ACCESSORIES;
+import static vapeShop.data.ControllerData.TO_ACCESSORY_CREATE;
+import static vapeShop.data.ControllerData.TO_ACCESSORY_EDIT;
+import static vapeShop.data.ControllerData.REDIRECT_ACCESSORY;
+import static vapeShop.data.ControllerData.MAPPING_EDIT;
+import static vapeShop.data.ControllerData.MAPPING_ID;
+import static vapeShop.data.EntityData.STORE_ID;
+import static vapeShop.data.EntityData.PROVIDER_ID;
+import static vapeShop.data.ControllerData.MAPPING_ACCESSORY;
+
 @Controller
-@RequestMapping("/accessory")
+@RequestMapping(MAPPING_ACCESSORY)
 @RequiredArgsConstructor
 public class AccessoryController {
 
@@ -26,60 +41,60 @@ public class AccessoryController {
     @GetMapping
     public String findAll(Model model) {
         List<AccessoryDto> accessoryDtoList = accessoryService.findAllAccessories();
-        model.addAttribute("accessories", accessoryDtoList);
-        return "accessory/accessories";
+        model.addAttribute(ACCESSORIES_LIST, accessoryDtoList);
+        return TO_ACCESSORIES;
     }
 
-    @GetMapping("/create")
+    @GetMapping(MAPPING_CREATE)
     public String creationAccessory(Model model) {
-        model.addAttribute("accessory", new AccessoryDto());
-        model.addAttribute("providers", providerService.findAllProviders());
-        model.addAttribute("stores", storeService.findAllStores());
-        return "accessory/add";
+        model.addAttribute(ACCESSORY_DTO, new AccessoryDto());
+        model.addAttribute(PROVIDERS_LIST, providerService.findAllProviders());
+        model.addAttribute(STORES_LIST, storeService.findAllStores());
+        return TO_ACCESSORY_CREATE;
     }
 
     @PostMapping()
     public String createAccessory(
-            @ModelAttribute("accessory") @Valid AccessoryDto accessoryDto,
+            @ModelAttribute(ACCESSORY_DTO) @Valid AccessoryDto accessoryDto,
             BindingResult bindingResult,
-            @RequestParam(value = "store_id", required = false) Long store_id,
-            @RequestParam(value = "provider_id", required = false) Long provider_id
+            @RequestParam(value = STORE_ID, required = false) Long store_id,
+            @RequestParam(value = PROVIDER_ID, required = false) Long provider_id
     ) {
         if (bindingResult.hasErrors()) {
-            return "accessory/add";
+            return TO_ACCESSORY_CREATE;
         }
         accessoryDto.setProviderId(provider_id);
         accessoryDto.setStoreId(store_id);
         accessoryService.createAccessory(accessoryDto);
-        return "redirect:/accessory";
+        return REDIRECT_ACCESSORY;
     }
 
-    @GetMapping("/{id}/edit")
-    public String update(@PathVariable("id") Long id,
+    @GetMapping(MAPPING_EDIT)
+    public String update(@PathVariable(ID) Long id,
                          Model model) {
-        model.addAttribute("accessory", accessoryService.findAccessoryById(id));
-        model.addAttribute("providers", providerService.findAllProviders());
-        model.addAttribute("stores", storeService.findAllStores());
-        return "accessory/edit";
+        model.addAttribute(ACCESSORY_DTO, accessoryService.findAccessoryById(id));
+        model.addAttribute(PROVIDERS_LIST, providerService.findAllProviders());
+        model.addAttribute(STORES_LIST, storeService.findAllStores());
+        return TO_ACCESSORY_EDIT;
     }
 
-    @PatchMapping("/{id}")
-    public String updateAccessory(@ModelAttribute("accessory") @Valid AccessoryDto accessoryDto,
+    @PatchMapping(MAPPING_ID)
+    public String updateAccessory(@ModelAttribute(ACCESSORY_DTO) @Valid AccessoryDto accessoryDto,
                                   BindingResult bindingResult,
-                                  @RequestParam(value = "store_id", required = false) Long store_id,
-                                  @RequestParam(value = "provider_id", required = false) Long provider_id) {
+                                  @RequestParam(value = STORE_ID, required = false) Long store_id,
+                                  @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
         if (bindingResult.hasErrors()) {
-            return "accessory/edit";
+            return TO_ACCESSORY_EDIT;
         }
         accessoryDto.setProviderId(provider_id);
         accessoryDto.setStoreId(store_id);
         accessoryService.updateAccessory(accessoryDto);
-        return "redirect:/accessory";
+        return REDIRECT_ACCESSORY;
     }
 
-    @PostMapping("/{id}")
-    public String delete(@PathVariable("id") Long id) {
+    @PostMapping(MAPPING_ID)
+    public String delete(@PathVariable(ID) Long id) {
         accessoryService.deleteAccessory(id);
-        return "redirect:/accessory";
+        return REDIRECT_ACCESSORY;
     }
 }

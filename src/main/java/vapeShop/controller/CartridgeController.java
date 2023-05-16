@@ -1,7 +1,6 @@
 package vapeShop.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import vapeShop.dto.CartridgeDto;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,12 @@ import vapeShop.service.StoreService;
 
 import java.util.List;
 
+import static vapeShop.data.ControllerData.*;
+import static vapeShop.data.EntityData.STORE_ID;
+import static vapeShop.data.EntityData.PROVIDER_ID;
+
 @Controller
-@RequestMapping("/cartridge")
+@RequestMapping(MAPPING_CARTRIDGE)
 @RequiredArgsConstructor
 public class CartridgeController {
 
@@ -26,63 +29,63 @@ public class CartridgeController {
     @GetMapping
     public String findAll(Model model) {
         List<CartridgeDto> deviceDtoList = cartridgeService.findAllCartridges();
-        model.addAttribute("cartridges", deviceDtoList);
-        return "cartridge/cartridges";
+        model.addAttribute(CARTRIDGES_LIST, deviceDtoList);
+        return TO_CARTRIDGES;
     }
 
-    @GetMapping("/create")
+    @GetMapping(MAPPING_CREATE)
     public String creationCartridge(Model model) {
-        model.addAttribute("cartridge", new CartridgeDto());
-        model.addAttribute("providers", providerService.findAllProviders());
-        model.addAttribute("stores", storeService.findAllStores());
-        return "cartridge/add";
+        model.addAttribute(CARTRIDGE_DTO, new CartridgeDto());
+        model.addAttribute(PROVIDERS_LIST, providerService.findAllProviders());
+        model.addAttribute(STORES_LIST, storeService.findAllStores());
+        return TO_CARTRIDGE_CREATE;
     }
 
     @PostMapping()
     public String createCartridge(
-            @ModelAttribute("accessory") @Valid CartridgeDto cartridgeDto,
+            @ModelAttribute(CARTRIDGE_DTO) @Valid CartridgeDto cartridgeDto,
             BindingResult bindingResult,
-            @RequestParam(value = "store_id", required = false) Long store_id,
-            @RequestParam(value = "provider_id", required = false) Long provider_id
+            @RequestParam(value = STORE_ID, required = false) Long store_id,
+            @RequestParam(value = PROVIDER_ID, required = false) Long provider_id
     ) {
         if (bindingResult.hasErrors()) {
-            return "cartridge/add";
+            return TO_CARTRIDGE_CREATE;
         }
 
         cartridgeDto.setProviderId(provider_id);
         cartridgeDto.setStoreId(store_id);
         cartridgeService.createCartridge(cartridgeDto);
 
-        return "redirect:/cartridge";
+        return REDIRECT_CARTRIDGE;
     }
 
-    @GetMapping("/{id}/edit")
-    public String update(@PathVariable("id") Long id,
+    @GetMapping(MAPPING_EDIT)
+    public String update(@PathVariable(ID) Long id,
                          Model model) {
-        model.addAttribute("cartridge", cartridgeService.findCartridgeById(id));
-        model.addAttribute("providers", providerService.findAllProviders());
-        model.addAttribute("stores", storeService.findAllStores());
-        return "cartridge/edit";
+        model.addAttribute(CARTRIDGE_DTO, cartridgeService.findCartridgeById(id));
+        model.addAttribute(PROVIDERS_LIST, providerService.findAllProviders());
+        model.addAttribute(STORES_LIST, storeService.findAllStores());
+        return TO_CARTRIDGE_EDIT;
     }
 
-    @PatchMapping("/{id}")
-    public String updateCartridge(@ModelAttribute("cartridge") @Valid CartridgeDto cartridgeDto,
+    @PatchMapping(MAPPING_ID)
+    public String updateCartridge(@ModelAttribute(CARTRIDGE_DTO) @Valid CartridgeDto cartridgeDto,
                                   BindingResult bindingResult,
-                                  @RequestParam(value = "store_id", required = false) Long store_id,
-                                  @RequestParam(value = "provider_id", required = false) Long provider_id) {
+                                  @RequestParam(value = STORE_ID, required = false) Long store_id,
+                                  @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
         if (bindingResult.hasErrors()) {
-            return "cartridge/edit";
+            return TO_CARTRIDGE_EDIT;
         }
 
         cartridgeDto.setProviderId(provider_id);
         cartridgeDto.setStoreId(store_id);
         cartridgeService.updateCartridge(cartridgeDto);
-        return "redirect:/cartridge";
+        return REDIRECT_CARTRIDGE;
     }
 
     @PostMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         cartridgeService.deleteCartridge(id);
-        return "redirect:/cartridge";
+        return REDIRECT_CARTRIDGE;
     }
 }

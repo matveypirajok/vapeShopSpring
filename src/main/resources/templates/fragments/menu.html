@@ -52,8 +52,7 @@
         <td align="center">
             <table>
                 <tr>
-                    <td>Menu-</td>
-                    <td><a th:href="@{/}">На главную</a></td>
+                    <td>Меню</td>
                     <td><a th:href="@{/accessory}">Аксессуары</a></td>
                     <td><a th:href="@{/cartridge}">Картриджи</a></td>
                     <td><a th:href="@{/device}">Парогенераторы</a></td>
@@ -61,21 +60,8 @@
                     <td><a th:href="@{/liquid}">Жидкости</a></td>
                     <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"><a th:href="@{/store}">Магазины</a></td>
                     <td sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"><a th:href="@{/provider}">Поставщики</a></td>
-                    <td sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Log in</a></td>
-                    <td sec:authorize="!isAuthenticated()"><a th:href="@{/users/new}">Sign in</a></td>
                 </tr>
             </table>
-        </td>
-        <td align="right">
-            <div sec:authorize="isAuthenticated()">
-
-                <div>
-                    Hello, <a th:href="@{/users/profile}"></a>
-                </div>
-                <div>
-                    <a th:href="@{/logout}">Logout</a>
-                </div>
-            </div>
         </td>
     </tr>
 </table>

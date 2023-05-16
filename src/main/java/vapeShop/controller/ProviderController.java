@@ -1,7 +1,6 @@
 package vapeShop.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import vapeShop.dto.ProviderDto;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +11,10 @@ import vapeShop.service.ProviderService;
 
 import java.util.List;
 
+import static vapeShop.data.ControllerData.*;
+
 @Controller
-@RequestMapping("/provider")
+@RequestMapping(MAPPING_PROVIDER)
 @RequiredArgsConstructor
 public class ProviderController {
 
@@ -22,45 +23,45 @@ public class ProviderController {
     @GetMapping
     public String findAll(Model model) {
         List<ProviderDto> providersDtoList = providerService.findAllProviders();
-        model.addAttribute("providers", providersDtoList);
-        return "provider/providers";
+        model.addAttribute(PROVIDERS_LIST, providersDtoList);
+        return TO_PROVIDERS;
     }
 
-    @GetMapping("/create")
+    @GetMapping(MAPPING_CREATE)
     public String creationProvider(Model model) {
-        model.addAttribute("provider", new ProviderDto());
-        return "provider/add";
+        model.addAttribute(PROVIDER_DTO, new ProviderDto());
+        return TO_PROVIDER_CREATE;
     }
 
     @PostMapping()
-    public String createProvider(@ModelAttribute("provider") @Valid ProviderDto providerDto, BindingResult bindingResult) {
+    public String createProvider(@ModelAttribute(PROVIDER_DTO) @Valid ProviderDto providerDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "provider/add";
+            return TO_PROVIDER_CREATE;
 
         providerService.createProvider(providerDto);
-        return "redirect:/provider";
+        return REDIRECT_PROVIDER;
     }
 
-    @GetMapping("/{id}/edit")
-    public String update(@PathVariable("id") Long id,
+    @GetMapping(MAPPING_EDIT)
+    public String update(@PathVariable(ID) Long id,
                          Model model) {
-        model.addAttribute("provider", providerService.findProviderById(id));
-        return "provider/edit";
+        model.addAttribute(PROVIDER_DTO, providerService.findProviderById(id));
+        return TO_PROVIDER_EDIT;
     }
 
-    @PatchMapping("/{id}")
-    public String updateProvider(@ModelAttribute("provider") @Valid ProviderDto providerDto, BindingResult bindingResult) {
+    @PatchMapping(MAPPING_ID)
+    public String updateProvider(@ModelAttribute(PROVIDER_DTO) @Valid ProviderDto providerDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "provider/edit";
+            return TO_PROVIDER_EDIT;
 
        providerService.updateProvider(providerDto);
-        return "redirect:/provider";
+        return REDIRECT_PROVIDER;
     }
 
-    @PostMapping("/{id}")
-    public String delete(@PathVariable("id") Long id)
+    @PostMapping(MAPPING_ID)
+    public String delete(@PathVariable(ID) Long id)
     {
         providerService.deleteProvider(id);
-        return  "redirect:/provider";
+        return  REDIRECT_PROVIDER;
     }
 }

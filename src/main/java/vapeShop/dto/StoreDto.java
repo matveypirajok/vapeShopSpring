@@ -3,6 +3,9 @@ package vapeShop.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import static vapeShop.data.MessageData.NAME_MESSAGE;
+import static vapeShop.data.MessageData.ADDRESS_MESSAGE;
+
 @Setter
 @Getter
 @Builder
@@ -12,9 +15,9 @@ import lombok.*;
 public class StoreDto {
     private Long id;
 
-    @NotBlank(message = "Название не может быть пустым")
+    @NotBlank(message = NAME_MESSAGE)
     private String name;
 
-    @NotBlank(message = "Адресс не может быть пустым")
+    @NotBlank(message = ADDRESS_MESSAGE)
     private String address;
 }

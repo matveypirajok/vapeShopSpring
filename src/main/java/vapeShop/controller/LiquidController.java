@@ -1,7 +1,6 @@
 package vapeShop.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import vapeShop.dto.LiquidDto;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,12 @@ import vapeShop.service.StoreService;
 
 import java.util.List;
 
+import static vapeShop.data.ControllerData.*;
+import static vapeShop.data.EntityData.STORE_ID;
+import static vapeShop.data.EntityData.PROVIDER_ID;
+
 @Controller
-@RequestMapping("/liquid")
+@RequestMapping(MAPPING_LIQUID)
 @RequiredArgsConstructor
 public class LiquidController {
 
@@ -26,59 +29,59 @@ public class LiquidController {
     @GetMapping
     public String findAll(Model model) {
         List<LiquidDto> liquidsDtoList = liquidService.findAllLiquids();
-        model.addAttribute("liquids", liquidsDtoList);
-        return "liquid/liquids";
+        model.addAttribute(LIQUIDS_LIST, liquidsDtoList);
+        return TO_LIQUIDS;
     }
 
-    @GetMapping("/create")
+    @GetMapping(MAPPING_CREATE)
     public String creationLiquid(Model model) {
-        model.addAttribute("liquid", new LiquidDto());
-        model.addAttribute("providers", providerService.findAllProviders());
-        model.addAttribute("stores", storeService.findAllStores());
-        return "liquid/add";
+        model.addAttribute(LIQUID_DTO, new LiquidDto());
+        model.addAttribute(PROVIDERS_LIST, providerService.findAllProviders());
+        model.addAttribute(STORES_LIST, storeService.findAllStores());
+        return TO_LIQUID_CREATE;
     }
 
     @PostMapping()
     public String createLiquid(
-            @ModelAttribute("evaporator") @Valid LiquidDto liquidDto,
+            @ModelAttribute(LIQUID_DTO) @Valid LiquidDto liquidDto,
             BindingResult bindingResult,
-            @RequestParam(value = "store_id", required = false) Long store_id,
-            @RequestParam(value = "provider_id", required = false) Long provider_id) {
-        if (bindingResult.hasErrors()){return "liquid/add";}
+            @RequestParam(value = STORE_ID, required = false) Long store_id,
+            @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+        if (bindingResult.hasErrors()){return TO_LIQUID_CREATE;}
 
         liquidDto.setProviderId(provider_id);
         liquidDto.setStoreId(store_id);
         liquidService.createLiquid(liquidDto);
 
-        return "redirect:/liquid";
+        return REDIRECT_LIQUID;
     }
 
-    @GetMapping("/{id}/edit")
-    public String update(@PathVariable("id") Long id,
+    @GetMapping(MAPPING_ID)
+    public String update(@PathVariable(ID) Long id,
                          Model model) {
-        model.addAttribute("liquid", liquidService.findLiquidById(id));
-        model.addAttribute("providers", providerService.findAllProviders());
-        model.addAttribute("stores", storeService.findAllStores());
-        return "liquid/edit";
+        model.addAttribute(LIQUID_DTO, liquidService.findLiquidById(id));
+        model.addAttribute(PROVIDERS_LIST, providerService.findAllProviders());
+        model.addAttribute(STORES_LIST, storeService.findAllStores());
+        return TO_LIQUID_EDIT;
     }
 
-    @PatchMapping("/{id}")
-    public String updateLiquid(@ModelAttribute("evaporator") LiquidDto liquidDto,
+    @PatchMapping(MAPPING_ID)
+    public String updateLiquid(@ModelAttribute(LIQUID_DTO) LiquidDto liquidDto,
                                BindingResult bindingResult,
-                               @RequestParam(value = "store_id", required = false) Long store_id,
-                               @RequestParam(value = "provider_id", required = false) Long provider_id) {
-        if (bindingResult.hasErrors()){return "liquid/edit";}
+                               @RequestParam(value = STORE_ID, required = false) Long store_id,
+                               @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+        if (bindingResult.hasErrors()){return TO_LIQUID_EDIT;}
 
         liquidDto.setProviderId(provider_id);
         liquidDto.setStoreId(store_id);
         liquidService.updateLiquid(liquidDto);
-        return "redirect:/liquid";
+        return REDIRECT_LIQUID;
     }
 
-    @PostMapping("/{id}")
-    public String delete(@PathVariable("id") Long id)
+    @PostMapping(MAPPING_ID)
+    public String delete(@PathVariable(ID) Long id)
     {
         liquidService.deleteLiquid(id);
-        return  "redirect:/liquid";
+        return  REDIRECT_LIQUID;
     }
 }
