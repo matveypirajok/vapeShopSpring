@@ -45,12 +45,12 @@ public class DeviceController {
     public String createDevice(
             @ModelAttribute(DEVICE_DTO) DeviceDto deviceDto,
             BindingResult bindingResult,
-            @RequestParam(value = STORE_ID, required = false) Long store_id,
-            @RequestParam(value = PROVIDER_ID, required = false) Long provider_id)
+            @RequestParam(value = STORE_ID, required = false) Long storeId,
+            @RequestParam(value = PROVIDER_ID, required = false) Long providerId)
     {
         if (bindingResult.hasErrors()){return TO_DEVICE_CREATE;}
-        deviceDto.setProviderId(provider_id);
-        deviceDto.setStoreId(store_id);
+        deviceDto.setProviderId(providerId);
+        deviceDto.setStoreId(storeId);
         deviceService.createDevice(deviceDto);
 
         return REDIRECT_DEVICE;
@@ -68,11 +68,11 @@ public class DeviceController {
     @PatchMapping(MAPPING_ID)
     public String updateDevice(@ModelAttribute(DEVICE_DTO) @Valid DeviceDto deviceDto,
                                BindingResult bindingResult,
-                               @RequestParam(value = STORE_ID, required = false) Long store_id,
-                               @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+                               @RequestParam(value = STORE_ID, required = false) Long storeId,
+                               @RequestParam(value = PROVIDER_ID, required = false) Long providerId) {
         if (bindingResult.hasErrors()){return TO_DEVICE_EDIT;}
-        deviceDto.setProviderId(provider_id);
-        deviceDto.setStoreId(store_id);
+        deviceDto.setProviderId(providerId);
+        deviceDto.setStoreId(storeId);
         deviceService.updateDevice(deviceDto);
         return REDIRECT_DEVICE;
     }

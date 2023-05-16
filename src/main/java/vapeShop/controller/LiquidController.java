@@ -45,12 +45,12 @@ public class LiquidController {
     public String createLiquid(
             @ModelAttribute(LIQUID_DTO) @Valid LiquidDto liquidDto,
             BindingResult bindingResult,
-            @RequestParam(value = STORE_ID, required = false) Long store_id,
-            @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+            @RequestParam(value = STORE_ID, required = false) Long storeId,
+            @RequestParam(value = PROVIDER_ID, required = false) Long providerId) {
         if (bindingResult.hasErrors()){return TO_LIQUID_CREATE;}
 
-        liquidDto.setProviderId(provider_id);
-        liquidDto.setStoreId(store_id);
+        liquidDto.setProviderId(providerId);
+        liquidDto.setStoreId(storeId);
         liquidService.createLiquid(liquidDto);
 
         return REDIRECT_LIQUID;
@@ -68,12 +68,12 @@ public class LiquidController {
     @PatchMapping(MAPPING_ID)
     public String updateLiquid(@ModelAttribute(LIQUID_DTO) LiquidDto liquidDto,
                                BindingResult bindingResult,
-                               @RequestParam(value = STORE_ID, required = false) Long store_id,
-                               @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+                               @RequestParam(value = STORE_ID, required = false) Long storeId,
+                               @RequestParam(value = PROVIDER_ID, required = false) Long providerId) {
         if (bindingResult.hasErrors()){return TO_LIQUID_EDIT;}
 
-        liquidDto.setProviderId(provider_id);
-        liquidDto.setStoreId(store_id);
+        liquidDto.setProviderId(providerId);
+        liquidDto.setStoreId(storeId);
         liquidService.updateLiquid(liquidDto);
         return REDIRECT_LIQUID;
     }

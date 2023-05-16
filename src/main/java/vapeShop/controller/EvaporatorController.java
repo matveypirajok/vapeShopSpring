@@ -45,12 +45,12 @@ public class EvaporatorController {
     public String createEvaporator(
             @ModelAttribute(EVAPORATOR_DTO) @Valid EvaporatorDto evaporatorDto,
             BindingResult bindingResult,
-            @RequestParam(value = STORE_ID, required = false) Long store_id,
-            @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+            @RequestParam(value = STORE_ID, required = false) Long storeId,
+            @RequestParam(value = PROVIDER_ID, required = false) Long providerId) {
         if (bindingResult.hasErrors()){return TO_EVAPORATOR_CREATE;}
 
-        evaporatorDto.setProviderId(provider_id);
-        evaporatorDto.setStoreId(store_id);
+        evaporatorDto.setProviderId(providerId);
+        evaporatorDto.setStoreId(storeId);
         evaporatorService.createEvaporator(evaporatorDto);
 
         return REDIRECT_EVAPORATOR;
@@ -68,12 +68,12 @@ public class EvaporatorController {
     @PatchMapping(MAPPING_ID)
     public String updateEvaporator(@ModelAttribute(EVAPORATOR_DTO) @Valid EvaporatorDto evaporatorDto,
                                    BindingResult bindingResult,
-                                   @RequestParam(value = STORE_ID, required = false) Long store_id,
-                                   @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+                                   @RequestParam(value = STORE_ID, required = false) Long storeId,
+                                   @RequestParam(value = PROVIDER_ID, required = false) Long providerId) {
         if (bindingResult.hasErrors()){return TO_EVAPORATOR_EDIT;}
 
-        evaporatorDto.setProviderId(provider_id);
-        evaporatorDto.setStoreId(store_id);
+        evaporatorDto.setProviderId(providerId);
+        evaporatorDto.setStoreId(storeId);
         evaporatorService.updateEvaporator(evaporatorDto);
         return REDIRECT_EVAPORATOR;
     }

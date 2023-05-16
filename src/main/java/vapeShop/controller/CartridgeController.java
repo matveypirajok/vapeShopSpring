@@ -45,15 +45,15 @@ public class CartridgeController {
     public String createCartridge(
             @ModelAttribute(CARTRIDGE_DTO) @Valid CartridgeDto cartridgeDto,
             BindingResult bindingResult,
-            @RequestParam(value = STORE_ID, required = false) Long store_id,
-            @RequestParam(value = PROVIDER_ID, required = false) Long provider_id
+            @RequestParam(value = STORE_ID, required = false) Long storeId,
+            @RequestParam(value = PROVIDER_ID, required = false) Long providerId
     ) {
         if (bindingResult.hasErrors()) {
             return TO_CARTRIDGE_CREATE;
         }
 
-        cartridgeDto.setProviderId(provider_id);
-        cartridgeDto.setStoreId(store_id);
+        cartridgeDto.setProviderId(providerId);
+        cartridgeDto.setStoreId(storeId);
         cartridgeService.createCartridge(cartridgeDto);
 
         return REDIRECT_CARTRIDGE;
@@ -71,14 +71,14 @@ public class CartridgeController {
     @PatchMapping(MAPPING_ID)
     public String updateCartridge(@ModelAttribute(CARTRIDGE_DTO) @Valid CartridgeDto cartridgeDto,
                                   BindingResult bindingResult,
-                                  @RequestParam(value = STORE_ID, required = false) Long store_id,
-                                  @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+                                  @RequestParam(value = STORE_ID, required = false) Long storeId,
+                                  @RequestParam(value = PROVIDER_ID, required = false) Long providerId) {
         if (bindingResult.hasErrors()) {
             return TO_CARTRIDGE_EDIT;
         }
 
-        cartridgeDto.setProviderId(provider_id);
-        cartridgeDto.setStoreId(store_id);
+        cartridgeDto.setProviderId(providerId);
+        cartridgeDto.setStoreId(storeId);
         cartridgeService.updateCartridge(cartridgeDto);
         return REDIRECT_CARTRIDGE;
     }

@@ -57,14 +57,14 @@ public class AccessoryController {
     public String createAccessory(
             @ModelAttribute(ACCESSORY_DTO) @Valid AccessoryDto accessoryDto,
             BindingResult bindingResult,
-            @RequestParam(value = STORE_ID, required = false) Long store_id,
-            @RequestParam(value = PROVIDER_ID, required = false) Long provider_id
+            @RequestParam(value = STORE_ID, required = false) Long storeId,
+            @RequestParam(value = PROVIDER_ID, required = false) Long providerId
     ) {
         if (bindingResult.hasErrors()) {
             return TO_ACCESSORY_CREATE;
         }
-        accessoryDto.setProviderId(provider_id);
-        accessoryDto.setStoreId(store_id);
+        accessoryDto.setProviderId(providerId);
+        accessoryDto.setStoreId(storeId);
         accessoryService.createAccessory(accessoryDto);
         return REDIRECT_ACCESSORY;
     }
@@ -81,13 +81,13 @@ public class AccessoryController {
     @PatchMapping(MAPPING_ID)
     public String updateAccessory(@ModelAttribute(ACCESSORY_DTO) @Valid AccessoryDto accessoryDto,
                                   BindingResult bindingResult,
-                                  @RequestParam(value = STORE_ID, required = false) Long store_id,
-                                  @RequestParam(value = PROVIDER_ID, required = false) Long provider_id) {
+                                  @RequestParam(value = STORE_ID, required = false) Long storeId,
+                                  @RequestParam(value = PROVIDER_ID, required = false) Long providerId) {
         if (bindingResult.hasErrors()) {
             return TO_ACCESSORY_EDIT;
         }
-        accessoryDto.setProviderId(provider_id);
-        accessoryDto.setStoreId(store_id);
+        accessoryDto.setProviderId(providerId);
+        accessoryDto.setStoreId(storeId);
         accessoryService.updateAccessory(accessoryDto);
         return REDIRECT_ACCESSORY;
     }
